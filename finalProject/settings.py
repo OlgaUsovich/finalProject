@@ -124,3 +124,4 @@ AUTH_USER_MODEL = 'authentication.User'
 LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/'
 
 adadadadad = 'ljkhkjhkj'
+adadadadad2 = 'ljkhkjhkj'
