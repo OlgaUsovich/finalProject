@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Магазин{% endblock %}</title>
+</head>
+<body>
+<header style="height: 50px; background-color: #645656;">
+    {% if user.is_authenticated %}
+        {{ user }}
+        <a href="{% url 'authentication:logout' %}">Выход</a>
+    {% else %}
+        <a href="{% url 'authentication:login' %}">Вход</a>
+        <a href="{% url 'authentication:registration' %}">Регистрация</a>
+    {% endif %}
+</header>
+{% block content %}
+
+{% endblock %}
+</body>
+</html>
