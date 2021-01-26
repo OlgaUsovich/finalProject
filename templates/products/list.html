@@ -3,7 +3,7 @@
 {% block content %}
     {% for object in object_list %}
 
-        <div><p>{{ object.name }}</p>
+        <div><p><a href="{% url 'products:detail' object.id %}">{{ object.name }}</a></p>
             <p>{{ object.description }}</p>
             <p>{{ object.price }}</p>
             <p>{{ object.size }}</p></div>

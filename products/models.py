@@ -25,7 +25,7 @@ class ProductImage(models.Model):
         verbose_name = 'Фото товаров'
 
     def __str__(self):
-        return str(self.product)
+        return str(self.product) + self.image.url
 
 
 class Size(models.Model):
