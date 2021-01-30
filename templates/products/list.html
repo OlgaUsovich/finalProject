@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Список товаров{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'products/products.css' %}">
+{% endblock %}
 {% block content %}
     {% for object in object_list %}
 
         <div><p><a href="{% url 'products:detail' object.id %}">{{ object.name }}</a></p>
-            <p>{{ object.description }}</p>
             <p>{{ object.price }}</p>
-            <p>{{ object.size }}</p></div>
+            <img class="images" src="{{ object.productimage_set.first.image.url }}" alt="Картинка товара {{ object.name }}" ><br>
+        </div>
     {% endfor %}
 
 
