@@ -8,10 +8,36 @@
     {% for object in object_list %}
 
         <div><p><a href="{% url 'products:detail' object.id %}">{{ object.name }}</a></p>
+            <label>Количество<input type="number" min="1"></label>
+            <button type="button" class="add_to_cart" data-url="{% url 'cart:add' object.id %}" data-a="a">Добавить в
+                корзину
+            </button>
             <p>{{ object.price }}</p>
-            <img class="images" src="{{ object.productimage_set.first.image.url }}" alt="Картинка товара {{ object.name }}" ><br>
+            <img class="images" src="{{ object.productimage_set.first.image.url }}"
+                 alt="Картинка товара {{ object.name }}"><br>
         </div>
     {% endfor %}
 
+    <label for="date">agkljljasdfgkljafglkjadfgkljfdgkl</label>
+    <input type="date" id="date" dataformatas="dd.mm.yyyy">
+    {{ request.session.items }}
 
+    <script>
+
+
+
+      document.querySelectorAll('.add_to_cart').forEach(function (button) {
+        button.addEventListener('click', function () {
+          const request = new XMLHttpRequest();
+
+          function printResponse() {
+            console.log(this.responseText);
+          }
+          request.addEventListener('load', printResponse)
+
+          request.open('GET', button.dataset.url)
+          request.send()
+        })
+      })
+    </script>
 {% endblock %}
