@@ -10,7 +10,7 @@
 <body>
 <header style="height: 50px; background-color: #645656; text-align: right;">
     {% if user.is_authenticated %}
-    <a class="text-muted" href="">{{ user }}</a>
+    <a class="text-muted" href="{% url 'authentication:profile' %}">{{ user }}</a>
         <a type="button" class="btn btn-danger" href="{% url 'authentication:logout' %}">Выход</a>
     {% else %}
         <a type="button"  class="btn btn-dark" href="{% url 'authentication:login' %}">Вход</a>

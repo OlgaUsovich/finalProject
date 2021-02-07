@@ -4,6 +4,7 @@
     <form action="" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
+        <input id="messages" type="checkbox"> <label for="messages">Подписаться на нашу рассылку</label>
         <button type="submit">Отправить</button>
     </form>
 

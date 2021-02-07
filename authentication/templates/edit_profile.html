@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Редактировать{% endblock %}
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p><input id="messages" type="checkbox"> <label for="messages">Подписаться на нашу рассылку</label></p>
+        <p><button type="submit">Сохранить изменения</button></p>
+    </form>
+
+
+{% endblock %}
