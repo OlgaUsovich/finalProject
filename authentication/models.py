@@ -6,3 +6,4 @@ from django.db import models
 class User(AbstractUser):
     phone = models.CharField('Номер телефона', max_length=255)
     address = models.TextField('Адрес')
+

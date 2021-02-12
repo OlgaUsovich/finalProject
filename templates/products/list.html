@@ -1,10 +1,29 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Список товаров{% endblock %}
+{% block title %}{% if category %}{{category.name}}{% else %}Список товаров{% endif %}{% endblock %}
 {% block style %}
     <link rel="stylesheet" href="{% static 'products/products.css' %}">
 {% endblock %}
+
 {% block content %}
+    <body>
+    <div id="sidebar">
+        <h3>Категории</h3>
+        <ul>
+            <li {% if not category %} class="selected"{% endif %}>
+                <a href="{% url 'products:list' %}">Все товары</a>
+            </li>
+
+        {% for c in categories %}
+            <li {% if category.slug == c.slug %}class="selected" {% endif %}>
+                <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+<div>
+    <h3>{% if category %}{{category.name}}{% else %}Все товары{% endif %}</h3>
     {% for object in object_list %}
 
         <div><p><a href="{% url 'products:detail' object.id %}">{{ object.name }}</a></p>
@@ -17,6 +36,7 @@
                  alt="Картинка товара {{ object.name }}"><br>
         </div>
     {% endfor %}
+</div>
 
     <label for="date">agkljljasdfgkljafglkjadfgkljfdgkl</label>
     <input type="date" id="date" dataformatas="dd.mm.yyyy">
@@ -40,4 +60,16 @@
         })
       })
     </script>
+    <div>
+        {% if page.has_previous %}
+            <a href="?page={{ page.previous_page_number }}">&lt;</a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+        {% endif %}
+    Страница {{ page.number }} из {{ page.paginator.num_pages }}
+    {% if page.has_next %}
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="?page={{ page.next_page_number }}">&gt;</a>
+    {% endif %}
+    </div>
+    </body>
 {% endblock %}
