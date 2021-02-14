@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'products',
     'authentication',
     'cart',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -125,3 +127,5 @@ MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'authentication.User'
 
 LOGIN_REDIRECT_URL = 'products:list'
+
+CART_SESSION_ID = 'cart'

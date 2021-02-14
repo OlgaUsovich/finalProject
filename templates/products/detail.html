@@ -19,8 +19,14 @@
          </p>
      </td>
       <td style="width: 60%">
+
           <h4>Цена:</h4>
-          <p style="font-size: 130%">{{ object.price }}</p><br>
+          <p style="font-size: 130%">{{ object.price }}</p>
+          <form action="{% url "cart:cart_add" product.id %}" method="post">
+            {{ cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="Добавить в корзину">
+          </form><br>
           <h4>Размер:</h4>
           <p style="font-size: 130%">{{ object.size }}</p><br>
           <h4>Описание:</h4>

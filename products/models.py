@@ -12,6 +12,7 @@ class Product(models.Model):
     description = models.CharField(max_length=255, verbose_name='Описание')
     price = models.DecimalField('Цена', max_digits=6, decimal_places=2)
     size = models.ForeignKey('Size', on_delete=models.DO_NOTHING)
+    stock = models.PositiveIntegerField("Количество на складе", default=1)
     available = models.BooleanField(default=True)
     category = models.ForeignKey('Category', on_delete=models.DO_NOTHING)
 
@@ -77,16 +78,17 @@ class BasketItem(models.Model):
     user = models.ForeignKey('authentication.User', on_delete=models.CASCADE)
 
 
-class Order(models.Model):
-
-    statuses = ['Создан', 'В обработке', 'Ожидает доставку', 'Доставлен', 'Отменен']
-    payment_methods = ['Наличные', 'Карта']
-
-    # user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='Пользователь')
-    status = models.CharField(choices=enumerate(statuses), verbose_name='Статус заказа')
-    basket_item = models.ForeignKey(BasketItem, on_delete=models.DO_NOTHING, verbose_name='Товар')
-    order_price = models.PositiveIntegerField("Общая сумма заказа")
-    delivery_address = models.CharField("Адрес доставки")
-    contacts = models.CharField("Контакты")
-    payment_method = models.CharField(choices=enumerate(payment_methods), verbose_name='Способ оплаты')
+# class Order(models.Model):
+#
+#     statuses = ['Создан', 'В обработке', 'Ожидает доставку', 'Доставлен', 'Отменен']
+#     payment_methods = ['Наличные', 'Карта']
+#
+#     number = models.CharField("Номер заказа")
+#     # user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='Пользователь')
+#     status = models.CharField(choices=enumerate(statuses), verbose_name='Статус заказа')
+#     basket_item = models.ForeignKey(BasketItem, on_delete=models.DO_NOTHING, verbose_name='Товар')
+#     order_price = models.PositiveIntegerField("Общая сумма заказа")
+#     delivery_address = models.CharField("Адрес доставки")
+#     contacts = models.CharField("Контакты")
+#     payment_method = models.CharField(choices=enumerate(payment_methods), verbose_name='Способ оплаты')
 

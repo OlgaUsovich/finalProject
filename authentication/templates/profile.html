@@ -3,6 +3,7 @@
 {% block content %}
 <a type="button" href="{% url 'authentication:edit_profile' id=user_info.id %}">Редактировать информацию профиля</a> |
 <a type="button" href="{% url 'authentication:change_password' %}">Сменить пароль</a> |
+<a type="button" href="{% url 'cart:cart_detail' %}">Корзина</a> |
 <a type="button" href="">История заказов</a>
     <p>Логин: {{ user_info.username }}</p>
     <p>Имя: {{ user_info.first_name }}</p>

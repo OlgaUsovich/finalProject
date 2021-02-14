@@ -27,11 +27,16 @@
     {% for object in object_list %}
 
         <div><p><a href="{% url 'products:detail' object.id %}">{{ object.name }}</a></p>
-            <label>Количество<input type="number" min="1"></label>
-            <button type="button" class="add_to_cart" data-url="{% url 'cart:add' object.id %}" data-a="a">Добавить в
-                корзину
-            </button>
+{#            <label>Количество<input type="number" min="1"></label>#}
+{#            <button type="button" class="add_to_cart" data-url="{% url 'cart:add' object.id %}" data-a="a">Добавить в#}
+{#                корзину#}
+{#            </button>#}
             <p>{{ object.price }}</p>
+            <form action="{% url "cart:cart_add" object.id %}" method="post">
+                {{ cart_product_form }}
+                {% csrf_token %}
+                <input type="submit" value="Добавить в корзину">
+        </form>
             <img class="images" src="{{ object.productimage_set.first.image.url }}"
                  alt="Картинка товара {{ object.name }}"><br>
         </div>
