@@ -120,6 +120,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / "common_static",
+]
+
 MEDIA_ROOT = BASE_DIR / 'media'
 
 MEDIA_URL = '/media/'
@@ -129,3 +133,4 @@ AUTH_USER_MODEL = 'authentication.User'
 LOGIN_REDIRECT_URL = 'products:list'
 
 CART_SESSION_ID = 'cart'
+

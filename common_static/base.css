@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'Playlist-Script';
+    src: url('/static/Playlist-Script.ttf.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.header {
+    height: 70px;
+    background-color: #7ED957;
+    display: flex;
+    padding: 15px 10px;
+}
+
+.logo {
+    margin-right: auto;
+    font-family: "Playlist-Script";
+    font-size: 38px;
+    color: white;
+}
+
+.logo:hover{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.cart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 10px;
+}

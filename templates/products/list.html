@@ -1,80 +1,71 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}{% if category %}{{category.name}}{% else %}Список товаров{% endif %}{% endblock %}
+{% block title %}{% if category %}{{ category.name }}{% else %}Список товаров{% endif %}{% endblock %}
 {% block style %}
     <link rel="stylesheet" href="{% static 'products/products.css' %}">
 {% endblock %}
 
 {% block content %}
-    <body>
-    <div id="sidebar">
-        <h3>Категории</h3>
-        <ul>
-            <li {% if not category %} class="selected"{% endif %}>
-                <a href="{% url 'products:list' %}">Все товары</a>
-            </li>
+    <div class="bg-light">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a class="btn {% if not category %} btn-secondary{% else %}btn-light{% endif %}"
+               href="{% url 'products:list' %}">Все товары</a>
 
-        {% for c in categories %}
-            <li {% if category.slug == c.slug %}class="selected" {% endif %}>
-                <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-            </li>
+            {% for c in categories %}
+                <a class="btn {% if category.slug == c.slug %} btn-secondary{% else %}btn-light{% endif %}"
+                   href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        {% for object in object_list %}
+            <div class="col-sm-3">
+                <div class="card">
+                    <a href="{% url 'products:detail' object.id %}">
+                        <img class="card-img-top" style="max-height: 286px;"
+                             src="{{ object.productimage_set.first.image.url }}"
+                             alt="Картинка товара {{ object.name }}"></a>
+                    <div class="card-body">
+                        <p><a class="h5" href="{% url 'products:detail' object.id %}">{{ object.name }}</a></p>
+                        {#            <label>Количество<input type="number" min="1"></label>#}
+                        {#            <button type="button" class="add_to_cart" data-url="{% url 'cart:add' object.id %}" data-a="a">Добавить в#}
+                        {#                корзину#}
+                        {#            </button>#}
+                        <p>{{ object.price }}</p>
+                        <form action="{% url "cart:cart_add" object.id %}" method="post">
+                            {{ cart_product_form.quantity }}
+                            <button class="btn btn-sm" type="button" onclick="add1(this)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-plus" viewBox="0 0 16 16">
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg></button>
+                            {{ cart_product_form.update }}
+                            {% csrf_token %}
+                            <button class="btn btn-light"><img src="{% static 'icons/cart_icon.svg' %}"
+                                                               alt="Иконка корзины">Добавить в корзину
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-        </ul>
     </div>
 
-<div>
-    <h3>{% if category %}{{category.name}}{% else %}Все товары{% endif %}</h3>
-    {% for object in object_list %}
 
-        <div><p><a href="{% url 'products:detail' object.id %}">{{ object.name }}</a></p>
-{#            <label>Количество<input type="number" min="1"></label>#}
-{#            <button type="button" class="add_to_cart" data-url="{% url 'cart:add' object.id %}" data-a="a">Добавить в#}
-{#                корзину#}
-{#            </button>#}
-            <p>{{ object.price }}</p>
-            <form action="{% url "cart:cart_add" object.id %}" method="post">
-                {{ cart_product_form }}
-                {% csrf_token %}
-                <input type="submit" value="Добавить в корзину">
-        </form>
-            <img class="images" src="{{ object.productimage_set.first.image.url }}"
-                 alt="Картинка товара {{ object.name }}"><br>
-        </div>
-    {% endfor %}
-</div>
-
-    <label for="date">agkljljasdfgkljafglkjadfgkljfdgkl</label>
-    <input type="date" id="date" dataformatas="dd.mm.yyyy">
-    {{ request.session.items }}
-
-    <script>
-
-
-
-      document.querySelectorAll('.add_to_cart').forEach(function (button) {
-        button.addEventListener('click', function () {
-          const request = new XMLHttpRequest();
-
-          function printResponse() {
-            console.log(this.responseText);
-          }
-          request.addEventListener('load', printResponse)
-
-          request.open('GET', button.dataset.url)
-          request.send()
-        })
-      })
-    </script>
     <div>
         {% if page.has_previous %}
             <a href="?page={{ page.previous_page_number }}">&lt;</a>
             &nbsp;&nbsp;|&nbsp;&nbsp;
         {% endif %}
-    Страница {{ page.number }} из {{ page.paginator.num_pages }}
-    {% if page.has_next %}
-        &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="?page={{ page.next_page_number }}">&gt;</a>
-    {% endif %}
+        Страница {{ page.number }} из {{ page.paginator.num_pages }}
+        {% if page.has_next %}
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="?page={{ page.next_page_number }}">&gt;</a>
+        {% endif %}
     </div>
-    </body>
+    <script>
+        function add1(element) {
+            element.previousElementSibling.value = parseInt(element.previousElementSibling.value) + 1
+        }
+    </script>
 {% endblock %}
