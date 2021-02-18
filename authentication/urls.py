@@ -11,6 +11,6 @@ urlpatterns = [
     path('profile/change_password/', change_password, name='change_password'),
     path('profile/<int:id>/edit/', profile_edit, name='edit_profile'),
     path('profile/', view_profile, name='profile'),
-    path('email/<int:id>/', email, name='email')
+    path('email/<int:pk>/', email, name='email')
 
 ]

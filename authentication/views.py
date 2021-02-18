@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
+from django.urls import reverse
 from django.views.generic import CreateView
 from django.core.mail import send_mail
 from django.conf import settings
@@ -17,8 +18,10 @@ class CreateUserView(CreateView):
     model = User
     template_name = 'authentication/registration.html'
     form_class = RegistrationForm
-    success_url = 'authentication:email'
 
+    def get_success_url(self):
+        url = reverse('authentication:email', kwargs={'pk': self.object.id})
+        return url
 
 
 @login_required
@@ -80,6 +83,6 @@ def email(request, pk):
     subject = 'Thank you for registering to our site'
     message = ' it  means a world to us '
     email_from = settings.EMAIL_HOST_USER
-    recipient_list = [request.user.email]
+    recipient_list = [User.objects.filter(id=pk).first().email]
     send_mail(subject, message, email_from, recipient_list)
     return redirect('products:list')
