@@ -1,24 +1,38 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
 
 {% block title %}Оформление заказа{% endblock %}
 
 {% block content %}
-    <h1>Оформление заказа</h1>
-    <div class="order-info">
-        <h3>Ваш заказ</h3>
-        <ul>
-            {% for item in cart %}
-                <li>
-                    {{ item.quantity }}x {{ item.product.name }}
-                    <span>${{ item.total_price }}</span>
-                </li>
-            {% endfor %}
-        </ul>
-        <p>Общая сумма заказа: {{ cart.get_total_price }} р.</p>
+    <h2 class="change_font">Оформление заказа</h2>
+    <div class="row justify-content-around">
+        <div class="col-sm-6 col-lg-5">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col" colspan="3" class="table-light">Ваш заказ</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in cart %}
+                    <tr>
+                        <td colspan="2">{{ item.quantity }} x {{ item.product.name }}</td>
+                        <td>{{ item.total_price }} р.</td>
+                    </tr>
+                {% endfor %}
+                <tr class="table-danger">
+                    <th scope="row" colspan="2">Общая сумма заказа:</th>
+                    <td>{{ cart.get_total_price }} р.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6 col-lg-6">
+            <form action="" method="post" class="order-form">
+                {% bootstrap_form form %}
+                <p><input class="btn btn-success" value="Оформить заказ"></p>
+                {% csrf_token %}
+            </form>
+        </div>
     </div>
-    <form action="" method="post" class="order-form">
-        {{ form.as_p }}
-        <p><input type="submit" value="Оформить заказ"></p>
-        {% csrf_token %}
-    </form>
 {% endblock %}

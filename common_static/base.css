@@ -30,3 +30,7 @@
     justify-content: center;
     margin-right: 10px;
 }
+
+.change_font {
+    font-family: "Playlist-Script";
+}
