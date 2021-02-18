@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
     <h1>Корзина</h1>
-    <table class="cart">
+    <table class="table">
         <thead>
         <tr>
             <th>Фото</th>
@@ -22,31 +22,30 @@
                 <tr>
                     <td>
                         <a href="{{ product.get_absolute_url }}">
-                            <img class="images" src="
+                            <img style="width: 200px" alt="Картинка товара {{ product }}"
                                 {% if product.productimage_set %}
-                                    {{ product.productimage_set.first.image.url }}
+                                    src="{{ product.productimage_set.first.image.url }}"
                                 {% else %}
-                                    {% static "img/no_image.png" %}
-                                {% endif %}">
+                                    src="{% static "img/no_image.png" %}"
+                                {% endif %}>
                         </a>
                     </td>
                     <td>{{ product.name }}</td>
                     <td>{{ item.quantity }}</td>
-                    <td><a href="{% url "cart:cart_remove" product.id%}">Удалить из корзины</a></td>
-                    <td class="num">${{ item.price }}</td>
-                    <td class="num">${{ item.total_price }}</td>
+                    <td><a class="btn btn-light" href="{% url "cart:cart_remove" product.id%}">Удалить из корзины</a></td>
+                    <td>{{ item.price }} р.</td>
+                    <td>{{ item.total_price }} р.</td>
                 </tr>
             {% endwith %}
         {% endfor %}
         <tr class="total">
-            <td>Сумма заказа</td>
-            <td colspan="4"></td>
-            <td class="num">${{ cart.get_total_price }}</td>
+            <td colspan="5"><strong>Сумма заказа</strong></td>
+            <td><strong>{{ cart.get_total_price }} р.</strong></td>
         </tr>
         </tbody>
     </table>
     <p class="text-right">
-        <a href="{% url "products:list" %}" class="button light">Продолжить покупки</a>
-        <a href="{% url "orders:order_create" %}" class="button">Оформить заказ</a>
+        <a class="btn btn-dark" href="{% url "products:list" %}">Продолжить покупки</a>
+        <a class="btn btn-dark" href="{% url "orders:order_create" %}">Оформить заказ</a>
     </p>
 {% endblock %}
