@@ -1,11 +1,21 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 {% block title %}Вход{% endblock %}
 {% block content %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Отправить</button>
-    </form>
+    <div class="container ">
 
-
+        <div class="row justify-content-around">
+            <div class="col-sm-6 col-lg-5">
+                <h3>Добро пожаловать!</h3>
+                <br>
+                <h5>Представьтесь, пожалуйста:</h5>
+                <br>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <button class="btn btn-dark">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
