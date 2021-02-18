@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Профиль{% endblock %}
 {% block content %}
-    {% include '_profile_nav.html' with active='info' %}
+    {% include 'authentication/_profile_nav.html' with active='info' %}
     <p>Логин: {{ user_info.username }}</p>
     <p>Имя: {{ user_info.first_name }}</p>
     <p>Фамилия: {{ user_info.last_name }}</p>

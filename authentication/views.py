@@ -15,7 +15,7 @@ from authentication.models import User
 
 class CreateUserView(CreateView):
     model = User
-    template_name = 'registration.html'
+    template_name = 'authentication/registration.html'
     form_class = RegistrationForm
     success_url = 'authentication:email'
 
@@ -24,7 +24,7 @@ class CreateUserView(CreateView):
 @login_required
 def view_profile(request):
     user_info = User.objects.get(username=request.user.username)
-    return render(request, 'profile.html', {'user_info': user_info})
+    return render(request, 'authentication/profile.html', {'user_info': user_info})
 
 
 @login_required
@@ -38,7 +38,7 @@ def profile_edit(request, id):
             return redirect('authentication:profile')
     else:
         form = ProfileEdit(instance=user_info)
-    return render(request, 'edit_profile.html', {'form': form, 'user_info': user_info})
+    return render(request, 'authentication/edit_profile.html', {'form': form, 'user_info': user_info})
 
 
 @login_required
@@ -60,7 +60,7 @@ def change_password(request):
                 msg = "Повторенный пароль не соответствует исходному."
                 form.add_error('new_password2', msg)
                 context = {'form': form}
-                return render(request, 'change_password.html', context)
+                return render(request, 'authentication/change_password.html', context)
         else:
             msg = "Введен неверный пароль."
             form.add_error('old_password', msg)
@@ -68,12 +68,12 @@ def change_password(request):
                 msg2 = "Повторенный пароль не соответствует исходному."
                 form.add_error('new_password2', msg2)
                 context = {'form': form}
-                return render(request, 'change_password.html', context)
+                return render(request, 'authentication/change_password.html', context)
             context = {'form': form}
-            return render(request, 'change_password.html', context)
+            return render(request, 'authentication/change_password.html', context)
     form = ChangePasswordForm()
     context = {'form': form}
-    return render(request, 'change_password.html', context)
+    return render(request, 'authentication/change_password.html', context)
 
 
 def email(request, pk):

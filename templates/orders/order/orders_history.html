@@ -3,7 +3,7 @@
 {% block title %}История заказов{% endblock %}
 
 {% block content %}
-    {% include '_profile_nav.html' with active='history' %}
+    {% include 'authentication/_profile_nav.html' with active='history' %}
 
     {% for order in orders %}
         Заказ {{ order.order.id }}<br>

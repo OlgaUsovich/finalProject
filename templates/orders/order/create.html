@@ -16,7 +16,7 @@
         </ul>
         <p>Общая сумма заказа: {{ cart.get_total_price }} р.</p>
     </div>
-    <form action="." method="post" class="order-form">
+    <form action="" method="post" class="order-form">
         {{ form.as_p }}
         <p><input type="submit" value="Оформить заказ"></p>
         {% csrf_token %}
