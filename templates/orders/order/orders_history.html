@@ -6,10 +6,14 @@
     {% include 'authentication/_profile_nav.html' with active='history' %}
 
     {% for order in orders %}
-        Заказ {{ order.order.id }}<br>
-        Товар: {{ order.product }} * {{ order.quantity }}<br>
-        Цена товара: {{ order.price }}<br>
-        {#        Общая сумма: {{ order.order. }}#}
+        {% for item in order.items.all %}
+            {% ifchanged %}
+                Заказ {{ order.id }}<br>
+            {% endifchanged %}
+            Товар: {{ item.product }} * {{ item.quantity }}<br>
+            Цена товара: {{ item.price }}<br>
+            {% if forloop.last %} Общая сумма заказа: {{ order.sum }}<br><br>{% endif %}
+        {% endfor %}
     {% empty %}
         Вы еще ничего не заказывали.
     {% endfor %}

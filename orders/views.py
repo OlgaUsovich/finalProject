@@ -32,6 +32,10 @@ def order_create(request):
 @login_required
 def show_history(request):
     user = request.user
-    orders = OrderItem.objects.filter(order__user=user)
-    print(OrderItem.objects.filter(order__user=user).first().product)
-    return render(request, 'orders/order/orders_history.html', {'orders': orders})
+    orders = Order.objects.filter(user=user)
+    for order in orders:
+        order.sum = 0
+        order_items = order.items.all()
+        for item in order_items:
+            order.sum += item.quantity * item.price
+    return render(request, 'orders/order/orders_history.html', locals())
