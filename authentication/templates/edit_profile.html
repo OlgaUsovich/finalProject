@@ -1,6 +1,7 @@
-{% extends 'profile.html' %}
+{% extends 'base.html' %}
 {% block title %}Редактировать{% endblock %}
 {% block content %}
+    {% include '_profile_nav.html' with active='edit' %}
     <form action="" method="POST">
         {% csrf_token %}
         {{ form.as_p }}

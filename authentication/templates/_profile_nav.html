@@ -1,0 +1,18 @@
+<div class="bg-light">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a
+           class="btn {% if active == 'info' %} btn-secondary {% else %}btn-light{% endif %}"
+           href="
+    {% url 'authentication:profile' %}">Информация профиля</a>
+        <a
+           class="btn {% if active == 'edit' %} btn-secondary {% else %}btn-light{% endif %}"
+           href="
+    {% url 'authentication:edit_profile' id=user.id %}">Редактировать информацию профиля</a>
+        <a
+           class="btn {% if active == 'change_password' %} btn-secondary {% else %}btn-light{% endif %}"
+           href="{% url 'authentication:change_password' %}">Сменить пароль</a>
+        <a
+           class="btn {% if active == 'history' %} btn-secondary {% else %}btn-light{% endif %}"
+           href="{% url 'orders:order_history' %}">История заказов</a>
+    </div>
+</div>
