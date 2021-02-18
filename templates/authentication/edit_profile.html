@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 {% block title %}Редактировать{% endblock %}
 {% block content %}
     {% include 'authentication/_profile_nav.html' with active='edit' %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <p><input id="messages" type="checkbox"> <label for="messages">Подписаться на нашу рассылку</label></p>
-        <p><button type="submit">Сохранить изменения</button></p>
-    </form>
+    <div class="row">
+        <div class="col-sm-6 col-lg-4">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+{#                <p><input id="messages" type="checkbox"> <label for="messages">Подписаться на нашу рассылку</label></p>#}
+{#                <p>#}
+                    <button class="btn btn-dark">Сохранить изменения</button>
+                </p>
+            </form>
+        </div>
+    </div>
 
 
 {% endblock %}
