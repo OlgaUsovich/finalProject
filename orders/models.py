@@ -1,8 +1,11 @@
 from django.db import models
+
+from authentication.models import User
 from products.models import Product
 
 
 class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, blank=True)
     first_name = models.CharField(max_length=50, verbose_name='Имя')
     last_name = models.CharField(max_length=50, verbose_name='Фамилия')
     phone = models.CharField(max_length=50, verbose_name='Телефон')

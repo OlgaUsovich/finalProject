@@ -1,10 +1,13 @@
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
+from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 from django.views.generic import CreateView
+from django.core.mail import send_mail
+from django.conf import settings
 
 from authentication.forms import RegistrationForm, ProfileEdit, ChangePasswordForm
 from authentication.models import User
@@ -14,7 +17,8 @@ class CreateUserView(CreateView):
     model = User
     template_name = 'registration.html'
     form_class = RegistrationForm
-    success_url = '/'
+    success_url = 'authentication:email'
+
 
 
 @login_required
@@ -34,7 +38,7 @@ def profile_edit(request, id):
             return redirect('authentication:profile')
     else:
         form = ProfileEdit(instance=user_info)
-    return render(request, 'edit_profile.html', {'form': form})
+    return render(request, 'edit_profile.html', {'form': form, 'user_info': user_info})
 
 
 @login_required
@@ -70,3 +74,12 @@ def change_password(request):
     form = ChangePasswordForm()
     context = {'form': form}
     return render(request, 'change_password.html', context)
+
+
+def email(request, pk):
+    subject = 'Thank you for registering to our site'
+    message = ' it  means a world to us '
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [request.user.email]
+    send_mail(subject, message, email_from, recipient_list)
+    return redirect('products:list')

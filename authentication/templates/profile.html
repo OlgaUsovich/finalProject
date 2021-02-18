@@ -1,16 +1,34 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Профиль{% endblock %}
+{% block nav %}
+     <div class="bg-light">
+        <div class="btn-group" role="group" aria-label="Basic example">
+    <a type="button"
+       class="btn {% if request.path == '/authentication/profile/' %} btn-secondary {% else %}btn-light{% endif %}"
+       href="
+    {% url 'authentication:profile' %}">Информация профиля</a>
+<a type="button"
+       class="btn {% if request.path == '/authentication/profile/<int:id>/edit/' %} btn-secondary {% else %}btn-light{% endif %}"
+       href="
+    {% url 'authentication:edit_profile' id=user.id %}">Редактировать информацию профиля</a>
+    <a type="button"
+       class="btn {% if request.path == '/authentication/profile/change_password/' %} btn-secondary {% else %}btn-light{% endif %}"
+       href="{% url 'authentication:change_password' %}">Сменить пароль</a>
+    <a type="button"
+       class="btn {% if request.path == '/orders/order_history/' %} btn-secondary {% else %}btn-light{% endif %}"
+       href="{% url 'orders:order_history' %}">История заказов</a>
+        </div>
+     </div>
+{% endblock %}
 {% block content %}
-<a type="button" href="{% url 'authentication:edit_profile' id=user_info.id %}">Редактировать информацию профиля</a> |
-<a type="button" href="{% url 'authentication:change_password' %}">Сменить пароль</a> |
-<a type="button" href="{% url 'cart:cart_detail' %}">Корзина</a> |
-<a type="button" href="">История заказов</a>
     <p>Логин: {{ user_info.username }}</p>
     <p>Имя: {{ user_info.first_name }}</p>
     <p>Фамилия: {{ user_info.last_name }}</p>
     <p>E-mail: {{ user_info.email }}</p>
     <p>Телефон: {{ user_info.phone }}</p>
     <p>Адрес: {{ user_info.address }}</p>
+    <a type="button" class="btn btn-dark" href="{% url 'products:list' %}">Назад</a>
 
 
 

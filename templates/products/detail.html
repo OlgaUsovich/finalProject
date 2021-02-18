@@ -7,38 +7,70 @@
 {% block content %}
 
     <div>
-<table style="width: 100%">
-<tr class="table-active">
-     <td colspan="2"><h1>{{ object.name }}</h1></td>
-</tr>
-<tr class="table-active">
-     <td rowspan="4">
-         <p>
-             {% for productimage in object.productimage_set.all %}
-            <img class="images" src="{{ productimage.image.url }}" alt="Картинка товара {{ object.name }}" ><br>{% endfor %}
-         </p>
-     </td>
-      <td style="width: 60%">
+        <table style="width: 100%">
+            <tr class="table-active">
+                <td colspan="2"><h1>{{ product.name }}</h1></td>
+            </tr>
+            <tr class="table-active">
+                <td rowspan="4">
+                    <p>
+                        {% if product.productimage_set.all %}
+                            {% for productimage in product.productimage_set.all %}
+                                <img class="images" src="{{ productimage.image.url }}"
+                                     alt="Картинка товара {{ product.name }}"><br>
+                            {% endfor %}
+                        {% else %}
+                            <img class="images" src="{% static "img/no_image.png" %}"
+                                 alt="Картинка товара {{ product.name }}">
+                        {% endif %}
+                    </p>
+                </td>
+                <td style="width: 60%">
 
-          <h4>Цена:</h4>
-          <p style="font-size: 130%">{{ object.price }}</p>
-          <form action="{% url "cart:cart_add" product.id %}" method="post">
-            {{ cart_product_form }}
-            {% csrf_token %}
-            <input type="submit" value="Добавить в корзину">
-          </form><br>
-          <h4>Размер:</h4>
-          <p style="font-size: 130%">{{ object.size }}</p><br>
-          <h4>Описание:</h4>
-          <p>{{ object.description }}</p><br>
-      </td>
-</tr>
-    </table>
+                    <h4>Цена:</h4>
+                    <p style="font-size: 130%">{{ product.price }}</p>
+                    <form action="{% url "cart:cart_add" product.id %}" method="POST">
+                        {{ cart_product_form.quantity }}
+                        <button class="btn btn-sm" type="button" onclick="add1(this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-plus" viewBox="0 0 16 16">
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg>
+                        </button>
+                        <button class="btn btn-sm" type="button" onclick="subtr1(this.previousElementSibling)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-dash" viewBox="0 0 16 16">
+                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                            </svg>
+                        </button>
+                        {{ cart_product_form.update }}
+                        {% csrf_token %}
+                        <button class="btn btn-light"><img src="{% static 'icons/cart_icon.svg' %}"
+                                                           alt="Иконка корзины"> Добавить в корзину
+                        </button>
+                    </form>
+                    <br>
+                    <h4>Размер:</h4>
+                    <p style="font-size: 130%">{{ product.size }}</p><br>
+                    <h4>Описание:</h4>
+                    <p>{{ product.description }}</p><br>
+                </td>
+            </tr>
+        </table>
         <a type="button" class="btn btn-dark" href="{% url 'products:list' %}">Назад</a>
 
 
-
-
     </div>
+    <script>
+        function add1(element) {
+            element.previousElementSibling.value = parseInt(element.previousElementSibling.value) + 1
+        }
+    </script>
+    <script>
+        function subtr1(element) {
+            if (element.previousElementSibling.value > 1)
+                element.previousElementSibling.value = parseInt(element.previousElementSibling.value) - 1
+        }
+    </script>
 
 {% endblock %}

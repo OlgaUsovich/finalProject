@@ -20,9 +20,10 @@ def product_list(request, category_slug=None):
     paginator = Paginator(products, 12)
     page = paginator.get_page(page_num)
     cart_product_form = CartAddProductForm()
-
+    print(request.user)
     content = {'category': category,
                'categories': categories,
                'page_object': page,
                'cart_product_form': cart_product_form}
+    print(request.user.id)
     return render(request, 'products/list.html', content)

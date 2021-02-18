@@ -1,0 +1,18 @@
+{% extends "profile.html" %}
+
+{% block title %}История заказов{% endblock %}
+
+{% block content %}
+    {% if orders %}
+    {% for order in orders %}
+        Заказ {{ order.order.id }}<br>
+        Товар: {{ order.product }} * {{ order.quantity }}<br>
+        Цена товара: {{ order.price }}<br>
+{#        Общая сумма: {{ order.order. }}#}
+
+    {% endfor %}
+        {% else %}
+        Вы еще ничего не заказывали.
+    {% endif %}
+    <a type="button" class="btn btn-dark" href="{% url 'products:list' %}">Назад</a>
+{% endblock %}
