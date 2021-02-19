@@ -80,8 +80,9 @@ def change_password(request):
 
 
 def email(request, pk):
-    subject = 'Thank you for registering to our site'
-    message = ' it  means a world to us '
+    subject = 'Регистрация в интеренет-магазине Flechazo Lingerie'
+    message = User.objects.filter(id=pk).first().first_name + ' ' + User.objects.filter(
+        id=pk).first().last_name + ', добро пожаловать на Flechazo Lingerie!\n\nЖелаем удачных покупок!'
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [User.objects.filter(id=pk).first().email]
     send_mail(subject, message, email_from, recipient_list)

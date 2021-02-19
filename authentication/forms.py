@@ -1,3 +1,4 @@
+from captcha.fields import CaptchaField
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.password_validation import validate_password
@@ -10,6 +11,7 @@ from finalProject.settings import AUTH_PASSWORD_VALIDATORS
 
 
 class RegistrationForm(UserCreationForm):
+    captcha = CaptchaField(label='Введите символы, изображенные на картинке')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
