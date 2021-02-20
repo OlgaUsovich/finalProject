@@ -5,6 +5,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Gilroy';
+    src: url('/static/Gilroy-BlackItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .header {
     height: 70px;
     background-color: #f515bb;
@@ -14,6 +21,7 @@
 
 .logo {
     margin-right: auto;
+    text-decoration: none;
     font-family: "Playlist-Script";
     font-size: 38px;
     color: white;
@@ -21,7 +29,7 @@
 
 .logo:hover{
     text-decoration: none;
-    color: whitesmoke;
+    color: darkgray;
 }
 
 .cart {
@@ -33,4 +41,53 @@
 
 .change_font {
     font-family: "Playlist-Script";
+}
+
+.back {
+    background-image: url(backgrounds/background.jpg);
+}
+
+.detail_img {
+    width: 600px;
+    height: 600px;
+}
+
+.product-name {
+    font-family: "Gilroy";
+    text-decoration: none;
+    color: #f515bb;
+}
+
+.product-name-detail {
+    font-family: "Gilroy";
+    text-decoration: none;
+    color: dimgrey;
+}
+
+.product-name:hover {
+    text-decoration: none;
+    color: dimgrey;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.cart-lit {
+    text-decoration: none;
+    font-family: "Gilroy";
+    font-size: 18px;
+    color: white;
+}
+
+.cart-lit-prod {
+    text-decoration: none;
+    font-family: "Gilroy";
+    font-size: 18px;
+    color: dimgrey;
+}
+
+.cart-lit-prod:hover {
+    text-decoration: none;
+    color: white;
 }

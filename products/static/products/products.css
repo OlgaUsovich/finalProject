@@ -2,9 +2,6 @@
     height: 200px;
     width: 200px;
 }
-.back {
-    background-image: url(backgrounds/dark.jpg);
-}
 
 .logo-img {
     alignment: left;

@@ -8,7 +8,7 @@
         <h1>Корзина</h1>
         <table class="table">
             <thead>
-            <tr class="table-light">
+            <tr class="table-secondary">
                 <th>Фото</th>
                 <th>Товар</th>
                 <th>Количество</th>
@@ -20,15 +20,16 @@
             <tbody>
             {% for item in cart %}
                 {% with product=item.product %}
-                    <tr>
+                    <tr class="table-light">
                         <td>
-                            <a href="{{ product.get_absolute_url }}">
+                            <a href="{{ item.get_absolute_url }}">
+                                {% if product.productimage_set.all %}
                                 <img style="width: 200px" alt="Картинка товара {{ product }}"
-                                        {% if product.productimage_set %}
-                                     src="{{ product.productimage_set.first.image.url }}"
-                                        {% else %}
-                                     src="{% static "img/no_image.png" %}"
-                                        {% endif %}>
+                                     src="{{ product.productimage_set.first.image.url }}">
+                                {% else %}
+                                    <img style="width: 200px" alt="Картинка товара {{ product }}"
+                                     src="{% static 'img/no_image.png' %}">
+                                {% endif %}
                             </a>
                         </td>
                         <td>{{ product.name }}</td>
@@ -40,13 +41,13 @@
                     </tr>
                 {% endwith %}
             {% endfor %}
-            <tr class="table-info">
+            <tr class="table-success">
                 <td colspan="5"><strong>Сумма заказа</strong></td>
                 <td><strong>{{ cart.get_total_price }} р.</strong></td>
             </tr>
             </tbody>
         </table>
-        <p class="text-right">
+        <p class="text-end">
             <a class="btn btn-secondary" href="{% url "products:list" %}">Продолжить покупки</a>
             <a class="btn btn-success" href="{% url "orders:order_create" %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

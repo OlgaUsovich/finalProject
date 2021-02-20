@@ -7,23 +7,54 @@
 {% block content %}
 
     <div>
-        <table style="width: 100%">
-            <tr class="table-active">
-                <td colspan="2"><h1>{{ product.name }}</h1></td>
+        <table class="table table-striped">
+            <tr>
+                <td colspan="2"><h1 class="product-name-detail">{{ product.name }}</h1></td>
             </tr>
-            <tr class="table-active">
+            <tr class="table-light">
                 <td rowspan="4">
-                    <p>
-                        {% if product.productimage_set.all %}
-                            {% for productimage in product.productimage_set.all %}
-                                <img class="images" src="{{ productimage.image.url }}"
-                                     alt="Картинка товара {{ product.name }}"><br>
+                    <div id="carouselControl" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% if product.productimage_set.all %}
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100 detail_img" src="{{ product.productimage_set.all.first.image.url }}"
+                                         alt="Картинка товара {{ product.name }}"><br>
+                                </div>
+                            {% for productimage in carousel_img %}
+                                <div class="carousel-item">
+                                    <img src="{{ productimage.image.url }}" class="d-block w-100 detail_img" alt="Картинка товара {{ product.name }}">
+                                </div>
                             {% endfor %}
-                        {% else %}
-                            <img class="images" src="{% static "img/no_image.png" %}"
-                                 alt="Картинка товара {{ product.name }}">
-                        {% endif %}
-                    </p>
+                            {% else %}
+                                <div class="carousel-item active">
+                                <img class="d-block w-100 detail_img" src="{% static "img/no_image.png" %}"
+                                     alt="Картинка товара {{ product.name }}">
+                                </div>
+                            {% endif %}
+                            <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselControl"
+                                    data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselControl"
+                                    data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        {#                    <p style="padding: 15px">#}
+                        {#                        {% if product.productimage_set.all %}#}
+                        {#                            {% for productimage in product.productimage_set.all %}#}
+                        {#                                <img class="img-fluid" src="{{ productimage.image.url }}"#}
+                        {#                                     alt="Картинка товара {{ product.name }}"><br>#}
+                        {#                            {% endfor %}#}
+                        {#                        {% else %}#}
+                        {#                            <img class="img-fluid" src="{% static "img/no_image.png" %}"#}
+                        {#                                 alt="Картинка товара {{ product.name }}">#}
+                        {#                        {% endif %}#}
+                        {#                    </p>#}
                 </td>
                 <td style="width: 60%">
 
@@ -57,7 +88,7 @@
                 </td>
             </tr>
         </table>
-        <a type="button" class="btn btn-dark" href="{% url 'products:list' %}">Назад</a>
+        <a type="button" class="btn btn-dark" href="{% url 'products:list' %}">Вернуться на главную</a>
 
 
     </div>

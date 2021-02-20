@@ -10,17 +10,17 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col" colspan="3" class="table-light">Ваш заказ</th>
+                    <th scope="col" colspan="3" class="table-secondary">Ваш заказ</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for item in cart %}
-                    <tr>
+                    <tr class="table-light">
                         <td colspan="2">{{ item.quantity }} x {{ item.product.name }}</td>
                         <td>{{ item.total_price }} р.</td>
                     </tr>
                 {% endfor %}
-                <tr class="table-danger">
+                <tr class="table-success">
                     <th scope="row" colspan="2">Общая сумма заказа:</th>
                     <td>{{ cart.get_total_price }} р.</td>
                 </tr>

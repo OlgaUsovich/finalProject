@@ -14,5 +14,13 @@
         <a
            class="btn {% if active == 'history' %} btn-secondary {% else %}btn-light{% endif %}"
            href="{% url 'orders:order_history' %}">История заказов</a>
+    {% if user_info.issuperuser %}
+    <a
+           class="btn {% if active == 'history' %} btn-secondary {% else %}btn-light{% endif %}"
+           href="{% url 'orders:order_history' %}">История заказов</a>
+    <a
+           class="btn {% if active == 'history' %} btn-secondary {% else %}btn-light{% endif %}"
+           href="{% url 'orders:order_history' %}">История заказов</a>
+    {% endif %}
     </div>
 </div>

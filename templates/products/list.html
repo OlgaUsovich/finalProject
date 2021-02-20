@@ -19,10 +19,10 @@
     </div>
     <div class="row">
         {% for object in page_object %}
-            <div class="col-sm-3">
+            <div class="col-sm-3" style="padding-bottom: 10px; padding-top: 10px;">
                 <div class="card">
                     <a href="{% url 'products:detail' object.id %}">
-                        <img class="card-img-top" style="max-height: 286px;"
+                        <img class="card-img-top" style="height: 286px;"
                              src="
                                      {% if object.productimage_set.first %}
                                          {{ object.productimage_set.first.image.url }}
@@ -31,7 +31,7 @@
                                      {% endif %}"
                              alt="Картинка товара {{ object.name }}"></a>
                     <div class="card-body">
-                        <p><a class="h5" href="{% url 'products:detail' object.id %}">{{ object.name }}</a></p>
+                        <p><a class="h5 product-name" href="{% url 'products:detail' object.id %}">{{ object.name }}</a></p>
                         <p>{{ object.price }} р.</p>
                         <form action="{% url "cart:cart_add" object.id %}" method="post">
                             {{ cart_product_form.quantity }}
@@ -104,19 +104,6 @@
             </li>
         </ul>
     </nav>
-
-    {#    <div>#}
-    {#        {% if page.has_previous %}#}
-    {#            <a href="?page={{ page.previous_page_number }}">&lt;</a>#}
-    {#            &nbsp;&nbsp;|&nbsp;&nbsp;#}
-    {#        {% endif %}#}
-    {#        Страница {{ page.number }} из {{ page.paginator.num_pages }}#}
-    {#        {% if page.has_next %}#}
-    {#            &nbsp;&nbsp;|&nbsp;&nbsp;#}
-    {#            <a href="?page={{ page.next_page_number }}">&gt;</a>#}
-    {#        {% endif %}#}
-    {#    </div>#}
-
 
     <script>
         function add1(element) {

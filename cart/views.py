@@ -46,5 +46,7 @@ def product_detail(request, id):
                                 id=id,
                                 available=True)
     cart_product_form = CartAddProductForm()
+    carousel_img = product.productimage_set.all()[1:]
     return render(request, 'products/detail.html', {'product': product,
-                                                    'cart_product_form': cart_product_form})
+                                                    'cart_product_form': cart_product_form,
+                                                    'carousel_img': carousel_img})
