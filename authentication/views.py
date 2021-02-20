@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
@@ -91,15 +93,20 @@ def email(request, pk):
 
 
 def show_all_orders(request):
-    orders = Order.objects.order_by('paid', 'id')
+    orders = Order.objects.order_by('paid', '-id')
+    todays_orders = 0
+    for order in orders:
+        if order.created.date() == (datetime.now().date() - timedelta(days=1)):
+            todays_orders += 1
     user_info = request.user
     for order in orders:
         order.sum = 0
         order_items = order.items.all()
-        order.len = 2*len(order.items.all()) - 1
+        order.len = 2 * len(order.items.all()) - 1
         for item in order_items:
             order.sum += item.quantity * item.price
-    return render(request, 'authentication/received_orders.html', {'orders': orders, 'user_info': user_info})
+    return render(request, 'authentication/received_orders.html',
+                  {'orders': orders, 'user_info': user_info, 'todays_orders': todays_orders})
 
 
 def order_edit(request, pk):

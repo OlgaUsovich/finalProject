@@ -1,26 +1,27 @@
 <div class="bg-light">
-    {% if user_info.is_superuser %}
-    <a
-           class="btn {% if active == 'received_orders' %} btn-secondary {% else %}btn-light{% endif %}"
-           href="{% url 'authentication:received_orders' %}">Поступившие заказы</a>
-{#    <a#}
-{#           class="btn {% if active == 'add_product' %} btn-secondary {% else %}btn-light{% endif %}"#}
-{#           href="{% url 'orders:add_product' %}">Добавление товаров</a>#}
-    {% endif %}
     <div class="btn-group" role="group" aria-label="Basic example">
+        {% if user_info.is_superuser %}
+            <a
+                    class="btn {% if active == 'received_orders' %} btn-secondary {% else %}btn-light{% endif %}"
+                    href="{% url 'authentication:received_orders' %}">Поступившие заказы</a>
+            {#    <a#}
+            {#           class="btn {% if active == 'add_product' %} btn-secondary {% else %}btn-light{% endif %}"#}
+            {#           href="{% url 'orders:add_product' %}">Добавление товаров</a>#}
+        {% endif %}
+
         <a
-           class="btn {% if active == 'info' %} btn-secondary {% else %}btn-light{% endif %}"
-           href="
+                class="btn {% if active == 'info' %} btn-secondary {% else %}btn-light{% endif %}"
+                href="
     {% url 'authentication:profile' %}">Информация профиля</a>
         <a
-           class="btn {% if active == 'edit' %} btn-secondary {% else %}btn-light{% endif %}"
-           href="
+                class="btn {% if active == 'edit' %} btn-secondary {% else %}btn-light{% endif %}"
+                href="
     {% url 'authentication:edit_profile' id=user.id %}">Редактировать информацию профиля</a>
         <a
-           class="btn {% if active == 'change_password' %} btn-secondary {% else %}btn-light{% endif %}"
-           href="{% url 'authentication:change_password' %}">Сменить пароль</a>
+                class="btn {% if active == 'change_password' %} btn-secondary {% else %}btn-light{% endif %}"
+                href="{% url 'authentication:change_password' %}">Сменить пароль</a>
         <a
-           class="btn {% if active == 'history' %} btn-secondary {% else %}btn-light{% endif %}"
-           href="{% url 'orders:order_history' %}">История заказов</a>
+                class="btn {% if active == 'history' %} btn-secondary {% else %}btn-light{% endif %}"
+                href="{% url 'orders:order_history' %}">История заказов</a>
     </div>
 </div>

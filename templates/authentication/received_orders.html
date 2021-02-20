@@ -4,6 +4,8 @@
 {% block content %}
     {% include 'authentication/_profile_nav.html' with active='received_orders' %}
     <div class="container">
+    <h5 class="product-name-detail text-end"><strong>Общее количество заказов: {{ orders.count }}</strong></h5>
+    <h5 class="product-name-detail text-end"><strong>Количество заказов за сегодня: {{ todays_orders }}</strong></h5>
     {% for order in orders %}
         <h3 class="product-name"><strong>Заказ № {{ order.id }}</strong></h3>
         <table class="table table-light table-borderless">
@@ -27,7 +29,7 @@
                     <p>E-mail: {{ order.email }}</p>
                     <p>Имя: {{ order.first_name }} {{ order.last_name }}</p>
                     <p>Адрес: {{ order.postal_code }} {{ order.city }}, {{ order.address }}</p>
-                    <p>Дата создания: {{ order.created }}</p></td>
+                    <p>Дата создания заказа: {{ order.created }}</p></td>
                 {% for item in order.items.all %}
                     <td>{{ item.product }}</td>
                     <td>{{ item.quantity }}</td>
