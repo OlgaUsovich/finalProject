@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy
 
 from authentication.models import User
 from finalProject.settings import AUTH_PASSWORD_VALIDATORS
+from orders.models import Order
 
 
 class RegistrationForm(UserCreationForm):
@@ -18,7 +19,6 @@ class RegistrationForm(UserCreationForm):
 
         for fieldname in ['username', 'password1', 'password2']:
             self.fields[fieldname].help_text = None
-
 
     class Meta:
         model = User
@@ -42,4 +42,8 @@ class ChangePasswordForm(forms.ModelForm):
         fields = ['old_password', 'new_password1', 'new_password2']
 
 
-
+class OrderEdit(ModelForm):
+    paid = forms.BooleanField(label='Заказ выполнен', required=False)
+    class Meta:
+        model = Order
+        exclude = ['user','created', 'updated', 'user_id']

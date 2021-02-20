@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Заказы{% endblock %}
+{% block content %}
+    {% include 'authentication/_profile_nav.html' with active='received_orders' %}
+    <div class="container">
+    {% for order in orders %}
+        <h3 class="product-name"><strong>Заказ № {{ order.id }}</strong></h3>
+        <table class="table table-light table-borderless">
+            <thead>
+            <tr>
+                <th scope="col" colspan="4" class="{% if order.paid %}table-info{% else %}table-danger{% endif %}">
+                    <b>Выполнен: {% if order.paid %}Да{% else %}Нет{% endif %}</b>
+                </th>
+            </tr>
+            <tr class="table-secondary">
+                <th scope="row">Информация о покупателе</th>
+                <th scope="row">Наименование товара</th>
+                <th scope="row">Количетво</th>
+                <th scope="row">Цена товара</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td rowspan="{{ order.len }}">
+                    <p>Телефон: {{ order.phone }}</p>
+                    <p>E-mail: {{ order.email }}</p>
+                    <p>Имя: {{ order.first_name }} {{ order.last_name }}</p>
+                    <p>Адрес: {{ order.postal_code }} {{ order.city }}, {{ order.address }}</p>
+                    <p>Дата создания: {{ order.created }}</p></td>
+                {% for item in order.items.all %}
+                    <td>{{ item.product }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.price }}</td>
+                    </tr>
+
+                    <tr>
+                        <th class="{% if forloop.last %}table-success{% endif %}" colspan="4">
+                            {% if forloop.last %}Общая сумма заказа: {{ order.sum }}{% endif %}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a type="button" class="btn btn-dark" href="{% url 'authentication:order_edit' pk=order.id %}">Редактировать
+            заказ</a><br><br><br>
+    {% endfor %}
+    </div>
+
+    {#    {% for order in orders %}#}
+    {#        <p><strong>Заказ № {{ order.id }}</strong></p>#}
+    {#        <p>Телефон: {{ order.phone }}</p>#}
+    {#        <p>E-mail: {{ order.email }}</p>#}
+    {#        <p>Имя: {{ order.first_name }} {{ order.last_name }}</p>#}
+    {#        <p>Адрес: {{ order.postal_code }} {{ order.city }}, {{ order.address }}</p>#}
+    {#        <p>Дата создания: {{ order.created }}</p>#}
+    {#        <p>Оплачен: {% if order.paid %}Да{% else %}Нет{% endif %}</p>#}
+    {#        <div>#}
+    {#            {% for item in order.items.all %}#}
+    {#                Товар: {{ item.product }} * {{ item.quantity }}<br>#}
+    {#                Цена товара: {{ item.price }}<br>#}
+    {#                {% if forloop.last %} Общая сумма заказа: {{ order.sum }}<br><br>{% endif %}#}
+    {#            {% endfor %}#}
+    {#        </div>#}
+
+    {#    {% endfor %}#}
+
+{% endblock %}

@@ -10,8 +10,9 @@ from django.views.generic import CreateView
 from django.core.mail import send_mail
 from django.conf import settings
 
-from authentication.forms import RegistrationForm, ProfileEdit, ChangePasswordForm
+from authentication.forms import RegistrationForm, ProfileEdit, ChangePasswordForm, OrderEdit
 from authentication.models import User
+from orders.models import Order
 
 
 class CreateUserView(CreateView):
@@ -87,3 +88,29 @@ def email(request, pk):
     recipient_list = [User.objects.filter(id=pk).first().email]
     send_mail(subject, message, email_from, recipient_list)
     return redirect('products:list')
+
+
+def show_all_orders(request):
+    orders = Order.objects.order_by('paid', 'id')
+    user_info = request.user
+    for order in orders:
+        order.sum = 0
+        order_items = order.items.all()
+        order.len = 2*len(order.items.all()) - 1
+        for item in order_items:
+            order.sum += item.quantity * item.price
+    return render(request, 'authentication/received_orders.html', {'orders': orders, 'user_info': user_info})
+
+
+def order_edit(request, pk):
+    order = get_object_or_404(Order, pk=pk)
+    user_info = request.user
+    if request.method == "POST":
+        form = OrderEdit(request.POST, instance=order)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.save()
+            return redirect('authentication:received_orders')
+    else:
+        form = OrderEdit(instance=order)
+    return render(request, 'authentication/edit_order.html', {'form': form, 'order': order, 'user_info': user_info})

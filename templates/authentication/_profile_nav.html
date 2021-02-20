@@ -1,4 +1,12 @@
 <div class="bg-light">
+    {% if user_info.is_superuser %}
+    <a
+           class="btn {% if active == 'received_orders' %} btn-secondary {% else %}btn-light{% endif %}"
+           href="{% url 'authentication:received_orders' %}">Поступившие заказы</a>
+{#    <a#}
+{#           class="btn {% if active == 'add_product' %} btn-secondary {% else %}btn-light{% endif %}"#}
+{#           href="{% url 'orders:add_product' %}">Добавление товаров</a>#}
+    {% endif %}
     <div class="btn-group" role="group" aria-label="Basic example">
         <a
            class="btn {% if active == 'info' %} btn-secondary {% else %}btn-light{% endif %}"
@@ -14,13 +22,5 @@
         <a
            class="btn {% if active == 'history' %} btn-secondary {% else %}btn-light{% endif %}"
            href="{% url 'orders:order_history' %}">История заказов</a>
-    {% if user_info.issuperuser %}
-    <a
-           class="btn {% if active == 'history' %} btn-secondary {% else %}btn-light{% endif %}"
-           href="{% url 'orders:order_history' %}">История заказов</a>
-    <a
-           class="btn {% if active == 'history' %} btn-secondary {% else %}btn-light{% endif %}"
-           href="{% url 'orders:order_history' %}">История заказов</a>
-    {% endif %}
     </div>
 </div>
