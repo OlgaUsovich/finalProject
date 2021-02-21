@@ -4,6 +4,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 from django.core.mail import send_mail
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
@@ -105,8 +106,14 @@ def show_all_orders(request):
         order.len = 2 * len(order.items.all()) - 1
         for item in order_items:
             order.sum += item.quantity * item.price
+    if 'page' in request.GET:
+        page_num = request.GET['page']
+    else:
+        page_num = 1
+    paginator = Paginator(orders, 10)
+    page = paginator.get_page(page_num)
     return render(request, 'authentication/received_orders.html',
-                  {'orders': orders, 'user_info': user_info, 'todays_orders': todays_orders})
+                  {'orders': page, 'user_info': user_info, 'todays_orders': todays_orders})
 
 
 def order_edit(request, pk):

@@ -4,8 +4,11 @@
 {% block content %}
     {% include 'authentication/_profile_nav.html' with active='received_orders' %}
     <div class="container">
+
     <h5 class="product-name-detail text-end"><strong>Общее количество заказов: {{ orders.count }}</strong></h5>
     <h5 class="product-name-detail text-end"><strong>Количество заказов за сегодня: {{ todays_orders }}</strong></h5>
+    <div class="row">
+    <div class="col-sm-6" style="padding-bottom: 10px; padding-top: 10px;">
     {% for order in orders %}
         <h3 class="product-name"><strong>Заказ № {{ order.id }}</strong></h3>
         <table class="table table-light table-borderless">
@@ -45,9 +48,56 @@
         </table>
         <a type="button" class="btn btn-dark" href="{% url 'authentication:order_edit' pk=order.id %}">Редактировать
             заказ</a><br><br><br>
+
+
     {% endfor %}
     </div>
+    </div>
+    </div>
 
+ <nav aria-label="Paginator" style="display: flex; justify-content: center">
+        <ul class="pagination">
+            <li class="page-item">
+                {% if orders.has_previous %}
+                    <a class="page-link" href="?page={{ orders.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </li>
+
+
+            {% for page in orders.paginator %}
+                {% if orders.number == page.number %}
+                    <li class="page-item active" aria-current="page">
+                    <span class="page-link">{{ page.number }}</span>
+                </li>
+                    {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ page.number }}">{{ page.number }}</a></li>
+
+            {% endif %}
+            {% endfor %}
+
+            {% if orders.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ orders.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+            </li>
+        </ul>
+    </nav>
     {#    {% for order in orders %}#}
     {#        <p><strong>Заказ № {{ order.id }}</strong></p>#}
     {#        <p>Телефон: {{ order.phone }}</p>#}
