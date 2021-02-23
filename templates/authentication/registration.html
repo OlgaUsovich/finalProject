@@ -10,6 +10,7 @@
                 <br>
                 <form action="" method="POST">
                     {% csrf_token %}
+                    {{ error }}
                     {% bootstrap_form form %}
                     <p><i>*После регистрации на Вашу электронную почту будет отправлено письмо с подтвержением.</i></p>
                     <button class="btn btn-success">

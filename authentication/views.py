@@ -50,6 +50,7 @@ def profile_edit(request, id):
 
 @login_required
 def change_password(request):
+    user_info = request.user
     if request.method == 'POST':
         form = ChangePasswordForm(request.POST)
         passwords = request.POST
@@ -79,7 +80,7 @@ def change_password(request):
             context = {'form': form}
             return render(request, 'authentication/change_password.html', context)
     form = ChangePasswordForm()
-    context = {'form': form}
+    context = {'form': form, 'user_info': user_info}
     return render(request, 'authentication/change_password.html', context)
 
 
@@ -97,7 +98,7 @@ def show_all_orders(request):
     orders = Order.objects.order_by('paid', '-id')
     todays_orders = 0
     for order in orders:
-        if order.created.date() == (datetime.now().date() - timedelta(days=1)):
+        if order.created.date() == datetime.now().date():
             todays_orders += 1
     user_info = request.user
     for order in orders:
@@ -113,7 +114,7 @@ def show_all_orders(request):
     paginator = Paginator(orders, 10)
     page = paginator.get_page(page_num)
     return render(request, 'authentication/received_orders.html',
-                  {'orders': page, 'user_info': user_info, 'todays_orders': todays_orders})
+                  {'orders': orders, 'user_info': user_info, 'todays_orders': todays_orders, 'pages': page})
 
 
 def order_edit(request, pk):

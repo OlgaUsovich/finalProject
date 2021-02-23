@@ -31,6 +31,7 @@
             <form action="" method="post" class="order-form">
                 {% csrf_token %}
                 {% bootstrap_form form %}
+                <p><i>*На указанный адрес эл. почты будет выслана информация о заказе</i></p>
                 <p>
                     <button class="btn btn-success">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

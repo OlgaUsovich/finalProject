@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Create your models here.
 from django.urls import reverse
 
@@ -21,6 +20,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_url(self):
+        return reverse('products:detail', kwargs={'id': self.id})
 
 
 class ProductImage(models.Model):
@@ -77,18 +79,4 @@ class BasketItem(models.Model):
     product_count = models.PositiveIntegerField("Количество")
     user = models.ForeignKey('authentication.User', on_delete=models.CASCADE)
 
-
-# class Order(models.Model):
-#
-#     statuses = ['Создан', 'В обработке', 'Ожидает доставку', 'Доставлен', 'Отменен']
-#     payment_methods = ['Наличные', 'Карта']
-#
-#     number = models.CharField("Номер заказа")
-#     # user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='Пользователь')
-#     status = models.CharField(choices=enumerate(statuses), verbose_name='Статус заказа')
-#     basket_item = models.ForeignKey(BasketItem, on_delete=models.DO_NOTHING, verbose_name='Товар')
-#     order_price = models.PositiveIntegerField("Общая сумма заказа")
-#     delivery_address = models.CharField("Адрес доставки")
-#     contacts = models.CharField("Контакты")
-#     payment_method = models.CharField(choices=enumerate(payment_methods), verbose_name='Способ оплаты')
 

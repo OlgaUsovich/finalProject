@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 
 from finalProject import settings
@@ -45,8 +46,14 @@ def order_create(request):
 
 @login_required
 def show_history(request):
-    user = request.user
-    orders = Order.objects.filter(user=user)
+    user_info = request.user
+    orders = Order.objects.filter(user=user_info)
+    if 'page' in request.GET:
+        page_num = request.GET['page']
+    else:
+        page_num = 1
+    paginator = Paginator(orders, 5)
+    pages = paginator.get_page(page_num)
     for order in orders:
         order.sum = 0
         order_items = order.items.all()

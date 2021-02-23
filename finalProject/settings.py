@@ -35,8 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "bootstrap4",
+    'bootstrap4',
     'captcha',
+    'watson',
 
     'products',
     'authentication',
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'watson.middleware.SearchContextMiddleware',
 ]
 
 ROOT_URLCONF = 'finalProject.urls'

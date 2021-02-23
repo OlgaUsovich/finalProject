@@ -20,6 +20,13 @@
     <a href="/" class="logo">
         Flechazo Lingerie
     </a>
+<div>
+    <form action="{% url 'products:search' %}">
+        <label for="searchbar">Поиск по сайту</label>
+        <input id="searchbar" name="q" value="{{request.GET.q}}">
+    <input type="submit" value="Найти">
+</form>
+</div>
     <div class="cart-lit" style="padding-right: 30px;">
         {% with total_items=cart|length %}
             {% if cart|length > 0 %}

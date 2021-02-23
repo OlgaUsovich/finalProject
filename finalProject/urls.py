@@ -20,13 +20,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    url(r'^cart/', include('cart.urls', namespace='cart')),
+    # url(r'^cart/', include('cart.urls', namespace='cart')),
     url(r'^orders/', include('orders.urls', namespace='orders')),
     path('', include('products.urls')),
     path('admin/', admin.site.urls),
     path('authentication/', include('authentication.urls')),
     path('cart/', include('cart.urls')),
     path('captcha/', include('captcha.urls')),
+    url(r"^search/", include("watson.urls", namespace="watson")),
 ]
 
 if settings.DEBUG:
