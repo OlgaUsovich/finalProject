@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load watson %}
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Результаты поиска{% if query %} для &ldquo;{{query}}&rdquo;{% endif %}</title>
+    </head>
+
+    {% block content %}
+        <h1 class="product-name-detail text-center">Результаты поиска по запросу &ldquo;{{query}}&rdquo;</h1>
+        {% if search_results %}
+            <div class="product-name">
+            {% search_results search_results %}
+            </div>
+        {% else %}
+            {% if query %}
+                <p class="product-name-detail text-center"><em>По вашему запросу ничего не найдено.</em></p>
+            {% endif %}
+        {% endif %}
+{% endblock %}

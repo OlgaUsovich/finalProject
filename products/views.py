@@ -30,17 +30,10 @@ def product_list(request, category_slug=None):
 
 
 class MySearch(SearchView):
+    cart_product_form = CartAddProductForm()
     empty_query_redirect = 'products:list'
-    extra_context = {}
-    # template_name = 'products/search_results.html'
+    extra_context = {'cart_product_form': cart_product_form}
+    template_name = 'search/search_results.html'
 
 
-def name_search(request):
-    q = request.GET.get('q')
-    if q:
-        results = Product.objects.filter(name__iexact=q)
-        print(results.query)
-    else:
-        results = Product.objects.none()
-    return render(request, 'products/search_results.html', locals())
 

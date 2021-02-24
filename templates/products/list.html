@@ -15,7 +15,7 @@
                 <a class="btn {% if category.slug == c.slug %} btn-secondary{% else %}btn-light{% endif %}"
                    href="{{ c.get_absolute_url }}">{{ c.name }}</a>
             {% endfor %}
-        </div>
+</div>
     </div>
     <div class="row">
         {% for object in page_object %}

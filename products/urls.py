@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView
 
 from cart.views import product_detail
 from products.models import Product
-from products.views import product_list, MySearch, name_search
+from products.views import product_list, MySearch
 
 app_name = 'products'
 urlpatterns = [
@@ -13,5 +13,5 @@ urlpatterns = [
     # url(r'^(P<category_slug>[-\w]+)/$', product_list, name='product_list_by_category'),
     path('<str:category_slug>', product_list, name='product_list_by_category'),
     # path('search/', MySearch.as_view(), name='search'),
-    path('search/', name_search, name='search'),
+    path('search/', MySearch.as_view(), name='search'),
 ]

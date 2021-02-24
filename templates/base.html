@@ -20,13 +20,7 @@
     <a href="/" class="logo">
         Flechazo Lingerie
     </a>
-<div>
-    <form action="{% url 'products:search' %}">
-        <label for="searchbar">Поиск по сайту</label>
-        <input id="searchbar" name="q" value="{{request.GET.q}}">
-    <input type="submit" value="Найти">
-</form>
-</div>
+
     <div class="cart-lit" style="padding-right: 30px;">
         {% with total_items=cart|length %}
             {% if cart|length > 0 %}
@@ -58,8 +52,18 @@
         {% endif %}
     </div>
 </header>
+<nav class="navbar text-end" style="background-color: lightgrey;">
+    <div class="container-fluid">
+        <div class="navbar-toggler"></div>
+        <form class="d-flex" action="{% url 'products:search' %}">
+            <input class="form-control me-2" type="search" placeholder="Наити..." aria-label="Поиск" name="q"
+                   value="{{ request.GET.q }}">
+            <button class="btn btn-outline-light" style="color: #f515bb; border-color: #f515bb" type="submit">Найти
+            </button>
+        </form>
+    </div>
+</nav>
 <div class="container-fluid">
-
     {% block nav %}
     {% endblock %}
 
