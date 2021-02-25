@@ -22,7 +22,7 @@
                 {% with product=item.product %}
                     <tr class="table-light">
                         <td>
-                            <a href="{{ item.get_absolute_url }}">
+                            <a href="{% url 'products:detail' id=product.id %}">
                                 {% if product.productimage_set.all %}
                                 <img style="width: 200px" alt="Картинка товара {{ product }}"
                                      src="{{ product.productimage_set.first.image.url }}">

@@ -44,7 +44,7 @@
 }
 
 .back {
-    background-image: url(backgrounds/background.jpg);
+    background-image: url(backgrounds/background80.png);
 }
 
 .detail_img {
@@ -90,4 +90,14 @@
 .cart-lit-prod:hover {
     text-decoration: none;
     color: white;
+}
+
+.contacts {
+    font-family: "Gilroy";
+    text-decoration: none;
+    color: dimgrey;
+}
+
+.contacts:hover {
+    color: #f515bb;
 }

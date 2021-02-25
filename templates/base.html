@@ -26,7 +26,7 @@
             {% if cart|length > 0 %}
                 Ваша корзина:<br>
                 <a class="cart-lit-prod" href="{% url "cart:cart_detail" %}">
-                    {{ total_items }} товар(ов),
+                    {{ total_items }} {{ cart.get_label }},
                     {{ cart.get_total_price }} р.
                 </a>
             {% endif %}
@@ -52,13 +52,24 @@
         {% endif %}
     </div>
 </header>
-<nav class="navbar text-end" style="background-color: lightgrey;">
+<nav class="navbar" style="background-color: lightgrey;">
     <div class="container-fluid">
-        <div class="navbar-toggler"></div>
+        <div class="navbar-toggler">
+            <span class="product-name-detail">Наши контакты:</span>
+            <span class="product-name-detail"><a class="contacts" href="tel:+375297777777"><img style="height: 30px; width: 30px;"
+                                                                        src="{% static 'icons/A1.png' %}">
+                +375 29 777 77 77</a>, <a class="contacts"
+                                          href="tel:+375337891544"><img style="height: 30px; width: 30px;"
+                                                                        src="{% static 'icons/mts.png' %}"> +375 33 789 15 44</a>, <a
+                    class="contacts"
+                    href="tg://resolve?domain=volha_me">
+                <img style="height: 30px; width: 30px;" src="{% static 'icons/telegram.svg' %}"> +375 33 789 15 44</a>
+            </span>
+        </div>
         <form class="d-flex" action="{% url 'products:search' %}">
             <input class="form-control me-2" type="search" placeholder="Наити..." aria-label="Поиск" name="q"
                    value="{{ request.GET.q }}">
-            <button class="btn btn-outline-light" style="color: #f515bb; border-color: #f515bb" type="submit">Найти
+            <button class="btn btn-outline-secondary" type="submit">Найти
             </button>
         </form>
     </div>
