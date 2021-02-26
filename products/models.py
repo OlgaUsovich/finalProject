@@ -44,7 +44,10 @@ class Size(models.Model):
         verbose_name = 'Размеры товаров'
 
     def __str__(self):
-        return self.value + ' ' + str(self.units)
+        if self.value.isdigit():
+            return self.value + ' ' + str(self.units)
+        else:
+            return self.value
 
 
 class Units(models.Model):

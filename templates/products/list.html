@@ -15,50 +15,51 @@
                 <a class="btn {% if category.slug == c.slug %} btn-secondary{% else %}btn-light{% endif %}"
                    href="{{ c.get_absolute_url }}">{{ c.name }}</a>
             {% endfor %}
-</div>
+        </div>
     </div>
-    <div class="row">
-        {% for object in page_object %}
-            <div class="col-sm-3" style="padding-bottom: 10px; padding-top: 10px;">
-                <div class="card">
-                    <a href="{% url 'products:detail' object.id %}">
-                        <img class="card-img-top" style="height: 286px;"
-                             src="
+        <div class="row">
+            {% for object in page_object %}
+                <div class="col-sm-3" style="padding-bottom: 10px; padding-top: 10px;">
+                    <div class="card">
+                        <a href="{% url 'products:detail' object.id %}">
+                            <img class="card-img-top" style="height: 286px;"
+                                 src="
                                      {% if object.productimage_set.first %}
                                          {{ object.productimage_set.first.image.url }}
                                      {% else %}
                                          {% static "img/no_image.png" %}
                                      {% endif %}"
-                             alt="Картинка товара {{ object.name }}"></a>
-                    <div class="card-body">
-                        <p><a class="h5 product-name" href="{% url 'products:detail' object.id %}">{{ object.name }}</a></p>
-                        <p>{{ object.price }} р.</p>
-                        <form action="{% url "cart:cart_add" object.id %}" method="post">
-                            {{ cart_product_form.quantity }}
-                            <button class="btn btn-sm" type="button" onclick="add1(this)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-plus" viewBox="0 0 16 16">
-                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                                </svg>
-                            </button>
-                            <button class="btn btn-sm" type="button" onclick="subtr1(this.previousElementSibling)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-dash" viewBox="0 0 16 16">
-                                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                                </svg>
-                            </button>
-                            {{ cart_product_form.update }}
-                            {% csrf_token %}
-                            <button class="btn btn-light"><img src="{% static 'icons/cart_icon.svg' %}"
-                                                               alt="Иконка корзины"> Добавить в корзину
-                            </button>
-                        </form>
+                                 alt="Картинка товара {{ object.name }}"></a>
+                        <div class="card-body">
+                            <p><a class="h5 product-name"
+                                  href="{% url 'products:detail' object.id %}">{{ object.name }}</a></p>
+                            <p>{{ object.price }} р.</p>
+                            <form action="{% url "cart:cart_add" object.id %}" method="post">
+                                {{ cart_product_form.quantity }}
+                                <button class="btn btn-sm" type="button" onclick="add1(this)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus" viewBox="0 0 16 16">
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="btn btn-sm" type="button" onclick="subtr1(this.previousElementSibling)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash" viewBox="0 0 16 16">
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                                {{ cart_product_form.update }}
+                                {% csrf_token %}
+                                <button class="btn btn-light"><img src="{% static 'icons/cart_icon.svg' %}"
+                                                                   alt="Иконка корзины"> Добавить в корзину
+                                </button>
+                            </form>
 
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
 
 
     <nav aria-label="Paginator" style="display: flex; justify-content: center">
@@ -81,12 +82,12 @@
             {% for page in page_object.paginator %}
                 {% if page_object.number == page.number %}
                     <li class="page-item active" aria-current="page">
-                    <span class="page-link">{{ page.number }}</span>
-                </li>
-                    {% else %}
-                <li class="page-item"><a class="page-link" href="?page={{ page.number }}">{{ page.number }}</a></li>
+                        <span class="page-link">{{ page.number }}</span>
+                    </li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page.number }}">{{ page.number }}</a></li>
 
-            {% endif %}
+                {% endif %}
             {% endfor %}
 
             {% if page_object.has_next %}

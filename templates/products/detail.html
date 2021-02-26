@@ -6,7 +6,7 @@
 {% endblock %}
 {% block content %}
 
-    <div>
+    <div class="container">
         <table class="table table-striped">
             <tr>
                 <td colspan="2"><h1 class="product-name-detail">{{ product.name }}</h1></td>
@@ -59,7 +59,7 @@
                 <td style="width: 60%">
 
                     <h4>Цена:</h4>
-                    <p style="font-size: 130%">{{ product.price }}</p>
+                    <p style="font-size: 130%">{{ product.price }} р.</p>
                     <form action="{% url "cart:cart_add" product.id %}" method="POST">
                         {{ cart_product_form.quantity }}
                         <button class="btn btn-sm" type="button" onclick="add1(this)">

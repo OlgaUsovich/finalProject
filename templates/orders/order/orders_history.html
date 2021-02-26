@@ -30,7 +30,7 @@
                         </thead>
                         <tbody class="table-light">
                         <tr>
-                            {% for item in order.items.all %}
+                            {% for item in order_.items.all %}
                                 <td>{{ item.product }}</td>
                                 <td>{{ item.quantity }}</td>
                                 <td>{{ item.price }}</td>
@@ -38,7 +38,7 @@
 
                                 <tr>
                                     <th class="{% if forloop.last %}table-success{% endif %}" colspan="4">
-                                        {% if forloop.last %}Общая сумма заказа: {{ order.sum }}{% endif %}</th>
+                                        {% if forloop.last %}Общая сумма заказа: {{ order_.sum }}{% endif %}</th>
                                 </tr>
                             {% endfor %}
                         </tbody>

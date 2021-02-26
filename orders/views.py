@@ -54,9 +54,9 @@ def show_history(request):
         page_num = 1
     paginator = Paginator(orders, 5)
     pages = paginator.get_page(page_num)
-    for order in orders:
-        order.sum = 0
-        order_items = order.items.all()
+    for order_ in orders:
+        order_.sum = 0
+        order_items = order_.items.all()
         for item in order_items:
-            order.sum += item.quantity * item.price
+            order_.sum += item.quantity * item.price
     return render(request, 'orders/order/orders_history.html', locals())
