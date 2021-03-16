@@ -1,12 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
+from django.db.models import QuerySet
 from django.shortcuts import render, redirect
 
 from finalProject import settings
 from .models import OrderItem, Order
 from .forms import OrderCreateForm
 from cart.cart import Cart
+import xlwt
+from django.http import HttpResponse
 
 
 def order_create(request):
@@ -60,3 +63,36 @@ def show_history(request):
         for item in order_items:
             order_.sum += item.quantity * item.price
     return render(request, 'orders/order/orders_history.html', locals())
+
+
+def export_orders_xls(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="orders.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Orders')
+
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Номер заказа', 'Имя', 'Фамилия', 'Email', 'Адрес', 'Дата создания']
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    font_style = xlwt.XFStyle()
+
+    date_created = [i['created'].strftime('%d.%M.%Y') for i in Order.objects.values('created')]
+
+    rows = Order.objects.all().values_list('id', 'first_name', 'last_name', 'email', 'address')
+
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+        ws.write(row_num, len(row), date_created[row_num-1], font_style)
+
+    wb.save(response)
+    return response
